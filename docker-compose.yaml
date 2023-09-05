@@ -8,7 +8,9 @@ services:
       - .:/app
     ports:
       - 5173:5173
+      - 4173:4173
     environment:
       - HOST=0.0.0.0
       - PORT=5173
+      - PREVIEW_PORT=4173  
    
