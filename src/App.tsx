@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { TableData } from "./models/tableData.model";
+import { TableData, expresionRegular } from "./models/tableData.model";
 
 function App() {
 	const [tableData, setTableData] = useState<TableData[]>([]);
 	const [textareaValue, setTextareaValue] = useState<string>("");
+	const [error, setError] = useState<boolean>(false);
 
 	const handleInput = (code: string) => {
-		const lines = code.split("\n"); // Dividir el contenido en líneas
+		const lines: string[] = code.split("\n"); // Dividir el contenido en líneas
 
 		const matches = [];
 
 		for (const line of lines) {
-			// Expresión regular para buscar declaraciones de variable válidas en cada línea
-			const expresionRegular =
-				/^(int|string|date|boolean)\s+([a-zA-Z_]\w*)\s*=\s*(\d+|".*"|new Date\(".*"\)|true|false)\s*;\s*$/g;
-
 			let match;
-			while ((match = expresionRegular.exec(line)) !== null) {
+
+			if ((match = expresionRegular.exec(line)) !== null) {
+				setError(false);
+				console.log(match);
 				const type = match[1];
 				const variable = match[2];
 				let value = match[3];
@@ -36,7 +36,7 @@ function App() {
 				}
 
 				matches.push({ type, variable, value });
-			}
+			} else setError(true);
 		}
 
 		// Actualizar la tabla de valores con las variables encontradas
@@ -48,7 +48,7 @@ function App() {
 	}, [tableData]);
 
 	return (
-		<>
+		<div className='main'>
 			<div className='d-flex px-5'>
 				<a href='https://vitejs.dev' target='_blank'>
 					<img src={viteLogo} className='logo' alt='Vite logo' />
@@ -69,20 +69,21 @@ function App() {
 							))}
 						</div>
 						<textarea
-							className='form-control px-5'
+							className={`form-control px-5 ${error ? "is-invalid" : ""}`}
 							id='exampleFormControlTextarea1'
 							rows={20}
 							onChange={(e) => {
 								handleInput(e.target.value);
 								setTextareaValue(e.target.value);
 							}}
+							value={textareaValue}
 						></textarea>
 					</div>
 				</div>
 				<div className='actionArea gap-2 d-flex flex-column'>
-					<h6>Aqui se muestra la tabla de valores</h6>
+					<h6>Here is shown the value's table</h6>
 					<hr />
-					<table className='table table-striped'>
+					<table className='table table-striped flex-grow-1'>
 						<thead>
 							<tr>
 								<th scope='col'>#</th>
@@ -102,12 +103,19 @@ function App() {
 							))}
 						</tbody>
 					</table>
-					<button type='button' className='btn btn-primary w-100'>
-						Base class
+					<button
+						type='button'
+						className='btn btn-primary w-100 align-self-end'
+						onClick={() => {
+							setTableData([]);
+							setTextareaValue("");
+						}}
+					>
+						Clear
 					</button>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 
