@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { TableData, expresionRegular } from "./models/tableData.model";
+import {
+	TableData,
+	regexes,
+	checkType,
+	typeActions,
+} from "./models/tableData.model";
+
+type Type$ = "int" | "string" | "date" | "boolean";
 
 function App() {
 	const [tableData, setTableData] = useState<TableData[]>([]);
@@ -15,27 +22,21 @@ function App() {
 		const matches = [];
 
 		for (const line of lines) {
+			let type = checkType.exec(line);
 			let match;
 
-			if ((match = expresionRegular.exec(line)) !== null) {
+			if (type !== null) match = regexes[type[0] as Type$].exec(line);
+
+			if (match !== null && match !== undefined) {
 				setError(false);
-				console.log(match);
-				const type = match[1];
+				const type: string = match[1];
 				const variable = match[2];
 				let value = match[3];
 
 				// Parsear el valor según el tipo
-				if (type === "int") {
-					value = parseInt(value, 10).toString();
-				} else if (type === "string") {
-					value = value.replace(/"/g, ""); // Eliminar comillas
-				} else if (type === "date") {
-					value = new Date(value.replace(/"/g, "")).toISOString();
-				} else if (type === "boolean") {
-					value = (value === "true").toString();
-				}
+				const parsedValue: string = typeActions[type as Type$](value);
 
-				matches.push({ type, variable, value });
+				matches.push({ type, variable, value: parsedValue });
 			} else setError(true);
 		}
 
@@ -43,9 +44,9 @@ function App() {
 		setTableData(matches as TableData[]);
 	};
 
-	useEffect(() => {
+	/* useEffect(() => {
 		console.log(tableData);
-	}, [tableData]);
+	}, [tableData]); */
 
 	return (
 		<div className='main'>
@@ -83,26 +84,28 @@ function App() {
 				<div className='actionArea gap-2 d-flex flex-column'>
 					<h6>Here is shown the value's table</h6>
 					<hr />
-					<table className='table table-striped flex-grow-1'>
-						<thead>
-							<tr>
-								<th scope='col'>#</th>
-								<th scope='col'>type</th>
-								<th scope='col'>Variable</th>
-								<th scope='col'>Value</th>
-							</tr>
-						</thead>
-						<tbody>
-							{tableData.map((data, index) => (
-								<tr key={index}>
-									<th scope='row'>{index + 1}</th>
-									<td>{data.type}</td>
-									<td>{data.variable}</td>
-									<td>{data.value.toString()}</td>
+					<div className='flex-grow-1'>
+						<table className='table table-striped'>
+							<thead>
+								<tr>
+									<th scope='col'>#</th>
+									<th scope='col'>type</th>
+									<th scope='col'>Variable</th>
+									<th scope='col'>Value</th>
 								</tr>
-							))}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								{tableData.map((data, index) => (
+									<tr key={index}>
+										<th scope='row'>{index + 1}</th>
+										<td>{data.type}</td>
+										<td>{data.variable}</td>
+										<td>{data.value.toString()}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
 					<button
 						type='button'
 						className='btn btn-primary w-100 align-self-end'
