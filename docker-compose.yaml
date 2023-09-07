@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   web:
     build:
@@ -7,10 +7,9 @@ services:
     volumes:
       - .:/app
     ports:
-      - 5173:5173
-      - 4173:4173
+      - 5174:5174
+      - 4174:4174
     environment:
       - HOST=0.0.0.0
-      - PORT=5173
-      - PREVIEW_PORT=4173  
-   
+      - PORT=5174
+      - PREVIEW_PORT=4174
