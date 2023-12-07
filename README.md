@@ -1,6 +1,6 @@
 # Verificador de Sintaxis en React con Vite
 
-Este proyecto fue desarrollado como parte de la asignatura de Lenguajes y Autómatas. Es un pequeño programa en React con Vite que realiza verificación de sintaxis, similar a la funcionalidad que ofrece Visual Studio Code.
+Este es un pequeño proyecto que fue desarrollado como parte de la asignatura de Lenguajes y Autómatas, por Darien Verdugo. Es un pequeño programa en React con Vite que realiza verificación de sintaxis, similar a la funcionalidad que ofrece Visual Studio Code pero de forma mas limitada.
 
 ## Funcionalidades
 
