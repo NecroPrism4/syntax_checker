@@ -1,27 +1,38 @@
-# React + TypeScript + Vite
+# Verificador de Sintaxis en React con Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto fue desarrollado como parte de la asignatura de Lenguajes y Autómatas. Es un pequeño programa en React con Vite que realiza verificación de sintaxis, similar a la funcionalidad que ofrece Visual Studio Code.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Verificación de Sintaxis:** La aplicación permite a los usuarios ingresar código y verifica la sintaxis, proporcionando retroalimentación inmediata sobre posibles errores de forma limidad con "Cues" visuales.
 
-## Expanding the ESLint configuration
+## Requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Node.js: Asegúrate de tener Node.js instalado. Puedes descargarlo desde [https://nodejs.org/](https://nodejs.org/)
 
-- Configure the top-level `parserOptions` property like this:
+## Instrucciones de Uso
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## con npm
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clona este repositorio: `git clone https://github.com/tuusuario/turepo.git`
+2. Instala las dependencias: `npm install`
+3. Inicia la aplicación: `npm run dev`
+4. Abre tu navegador y visita [http://localhost:5173](http://localhost:5173)
+
+### Con Docker Compose
+
+1. Necesitara contar con docker engine y el plugin de docker compose.
+2. Clona este repositorio: `git clone https://github.com/tuusuario/turepo.git`
+3. Ejecuta la aplicación con Docker Compose: `docker-compose up`
+
+## Capturas de pantalla
+
+<img src="images/captura1.png" alt="Sintaxis correcta">
+
+<hr/>
+
+<img src="images/captura3.png" alt="Sintaxis incorrecta">
+
+<hr/>
+
+<img src="images/captura2.png" alt="Sintaxis correcta otra vez">
