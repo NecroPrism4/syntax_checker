@@ -14,7 +14,7 @@ Este es un pequeño proyecto que fue desarrollado como parte de la asignatura de
 
 ## con npm
 
-1. Clona este repositorio: `git clone https://github.com/tuusuario/turepo.git`
+1. Clona este repositorio: `git clone [https://github.com/NecroPrism4/syntax_checker](https://github.com/NecroPrism4/syntax_checker)`
 2. Instala las dependencias: `npm install`
 3. Inicia la aplicación: `npm run dev`
 4. Abre tu navegador y visita [http://localhost:5173](http://localhost:5173)
